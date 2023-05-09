@@ -1,3 +1,5 @@
 exports.getProfile = (req, res) => {
-  return res.status(201).send({ data: req.user });
+  const user = req.user.toObject();
+  delete user.password;
+  return res.status(201).send({ data: user });
 };

@@ -6,9 +6,9 @@ exports.create = async (data) => {
 };
 
 exports.findOne = async (id) => {
-  return await User.findById(id).exec();
+  return await User.findById(id);
 };
 
 exports.getByEmail = async (email) => {
-  return await User.findOne({ email }).exec();
+  return await User.findOne({ email });
 };

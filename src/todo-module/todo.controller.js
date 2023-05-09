@@ -46,3 +46,24 @@ exports.removeHandler = async (req, res) => {
     return res.status(500).send({ error });
   }
 };
+
+exports.userTodosHandler = async (req, res) => {
+  const match = {};
+  if (req.query.is_completed) {
+    match.is_completed = req.query.is_completed;
+  }
+  try {
+    const populated = await req.user.populate({
+      path: 'todos',
+      match,
+      options: {
+        limit: +req.query.limit,
+        skip: +req.query.skip,
+      },
+    });
+    return res.status(200).send(populated.todos);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e);
+  }
+};
